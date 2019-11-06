@@ -72,7 +72,7 @@ public class StudentMarksApp implements Finalisable {
     }
 
     public static void addStudent() {
-        
+        //Test
         // Ask the user to input the values for a new student,
         // store in the students arrayList
         
