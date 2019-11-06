@@ -1,0 +1,159 @@
+package studentmarksapp;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+//The Following import a Utility set of classes used for the purpose of 
+//cretating a menu system, and creating serializable objects that can be 
+//saved to file. This is courtesy of Chi, who supplied this utility
+//in the first year.
+import uod.gla.io.Storage;
+import uod.gla.menu.MenuBuilder;
+import uod.gla.menu.MenuItem;
+import uod.gla.menu.Finalisable;
+import uod.gla.util.Reader;
+
+public class StudentMarksApp implements Finalisable {
+
+    static List<Student> students = new ArrayList<>();
+    static List<User> users = new ArrayList<>();
+    static StudentMarksApp app = new StudentMarksApp(); // Required for the MenuBuilder Class
+
+    public static void main(String[] args) {
+        try {
+            //Populate the Array List from storage if there is a file present
+            ArrayList<Student> retrieve
+                    = Storage.<ArrayList<Student>>retrieve("student database", true);
+            if (retrieve != null) {
+                students = retrieve;
+            }
+            
+            //Populate the Array List from storage if there is a file present
+            ArrayList<User> retrieveUser
+                    = Storage.<ArrayList<User>>retrieve("user database", true);
+            if (retrieveUser != null) {
+                users = retrieveUser;
+            }
+            
+            // TODO: Create one of above for each class
+            
+            
+            // Start Up the system
+            System.out.println("Welcome to the Student Marks Application");
+
+            //Generate the menu items        
+            MenuItem a = new MenuItem("A", "Student Details", app, "studentDetails");
+            MenuItem b = new MenuItem("B", "User (Lecturer) Details", app, "userDetails");
+            /*
+            MenuItem c = new MenuItem("C", "Course Details", app, "Course");
+            MenuItem d = new MenuItem("D", "Module Details", app, "Module");
+            MenuItem e = new MenuItem("B", "Assignment Details", app, "Assignment");
+            */
+            MenuItem f = new MenuItem("F", "Alphanumeric Conversion", app, "alphaConversion");
+            // Display the Menu, and link it to the finalise method, by using the app variable
+            MenuBuilder.displayMenu(app, a, b, f);
+            //MenuBuilder.displayMenu(app, a, b, c, d, e);
+            
+            // On shut down, store the values in the list on file (in the storage folder)
+            app.finalise();
+
+        } catch (Exception ex) {
+            System.out.println("An unexpected error has occured " + ex.getMessage() + "\n The application will close now");
+        }
+
+    }
+
+    public static void studentDetails() {
+        // SubMenu for Student Details
+        MenuItem a = new MenuItem("A", "Add Student", app, "addStudent");
+        MenuItem b = new MenuItem("B", "List Students", app, "listStudents");
+        MenuBuilder.displayMenuOnce("Select from the following choices", a, b);
+    }
+
+    public static void addStudent() {
+        
+        // Ask the user to input the values for a new student,
+        // store in the students arrayList
+        
+        // Get the input from the user
+        String firstName = Reader.readLine("Enter the Student's First Name");
+        String surname = Reader.readLine("Enter the Student's Surname");
+        String matricNo = Reader.readLine("Enter the student's Matriculation No.");
+
+        // Create a student object
+        Student student = new Student(firstName, surname, matricNo);
+
+        // Save the student. If the save is succesful, it will return a value of true
+        if (student.Save()){
+            System.out.println("A new student (" + student.FullName()
+                    + ") has been successfully created!");
+        } else {
+            System.out.println("A student with this Matriculation Number (" + student.getMatriculationId() + ")has already been entered.");
+            System.out.println("Adding student abandoned");
+        }
+
+    }
+
+    public static void listStudents() {
+        
+        if (students.isEmpty()) {
+            System.out.println("There are no students saved to the database");
+            return;
+        }
+
+        // List each student object to screen
+        students.forEach((stu) -> {
+            System.out.println(stu);
+        });
+            
+                
+    }
+
+    public static void userDetails() {
+        // The SubMenu for User Details
+        MenuItem a = new MenuItem("A", "Add User (lecturer) ", app, "addStudent");
+        MenuItem b = new MenuItem("B", "List Users (Lecturers)", app, "listStudents");
+        MenuBuilder.displayMenuOnce("Select from the following choices", a, b);
+    }
+
+    public static void addUser() {
+        // TODO: Replace with code to add User as per addStudent
+        System.out.println("The menu addUser works");
+    }
+
+    public static void listUser() {
+        // Replace with code to List Users as per listStudents
+        System.out.println("The menu listUser works");
+        
+    }
+    
+    public static void alphaConversion(){
+        String amount = Reader.readLine("Enter the Mark from 1 to 23");
+        //int amountVal = amount.
+        //String convertedValue = CalcDegreeANScale.CalcAlphaNumericValue(amount);
+        
+                
+    }
+
+    @Override
+    public void finalise() {
+
+        if (!students.isEmpty()) {
+            Storage.save((Serializable) students, "student database", true);
+        }
+
+        if (!users.isEmpty()) {
+            Storage.save((Serializable) users, "user database", true);
+        }   
+        
+        // TODO: Add methods to save the other objects
+        
+        
+        if (Storage.getException() != null) {
+            System.out.print(Storage.getException().getMessage());
+        }
+
+    }
+
+}
