@@ -45,15 +45,13 @@ public class StudentMarksApp implements Finalisable {
             //Generate the menu items        
             MenuItem a = new MenuItem("A", "Student Details", app, "studentDetails");
             MenuItem b = new MenuItem("B", "User (Lecturer) Details", app, "userDetails");
-            /*
-            MenuItem c = new MenuItem("C", "Course Details", app, "Course");
-            MenuItem d = new MenuItem("D", "Module Details", app, "Module");
-            MenuItem e = new MenuItem("B", "Assignment Details", app, "Assignment");
-            */
+            MenuItem c = new MenuItem("C", "Course Details", app, "courseDetails");
+            MenuItem d = new MenuItem("D", "Module Details", app, "moduleDetails");
+            MenuItem e = new MenuItem("E", "Assignment Details", app, "assignmentDetails");
             MenuItem f = new MenuItem("F", "Alphanumeric Conversion", app, "alphaConversion");
+            
             // Display the Menu, and link it to the finalise method, by using the app variable
-            MenuBuilder.displayMenu(app, a, b, f);
-            //MenuBuilder.displayMenu(app, a, b, c, d, e);
+            MenuBuilder.displayMenu(app, a, b, c, d, e, f);
             
             // On shut down, store the values in the list on file (in the storage folder)
             app.finalise();
@@ -105,15 +103,13 @@ public class StudentMarksApp implements Finalisable {
         // List each student object to screen
         students.forEach((stu) -> {
             System.out.println(stu);
-        });
-            
-                
+        });               
     }
 
     public static void userDetails() {
         // The SubMenu for User Details
-        MenuItem a = new MenuItem("A", "Add User (lecturer) ", app, "addStudent");
-        MenuItem b = new MenuItem("B", "List Users (Lecturers)", app, "listStudents");
+        MenuItem a = new MenuItem("A", "Add User (lecturer) ", app, "addUser");
+        MenuItem b = new MenuItem("B", "List Users (Lecturers)", app, "listUser");
         MenuBuilder.displayMenuOnce("Select from the following choices", a, b);
     }
 
@@ -127,6 +123,72 @@ public class StudentMarksApp implements Finalisable {
         System.out.println("The menu listUser works");
         
     }
+    
+    public static void courseDetails() {
+        // SubMenu for Course Details
+        MenuItem a = new MenuItem("A", "Add Course", app, "addCourse");
+        MenuItem b = new MenuItem("B", "List Courses", app, "listCourse");
+        MenuBuilder.displayMenuOnce("Select from the following choices", a, b);
+    }
+    
+    public static void addCourse() {
+        // TODO: Replace with code to add Course as per addStudent
+        System.out.println("The menu addCourse works");
+    }
+
+    public static void listCourse() {
+        // Replace with code to List Courses as per listStudents
+        System.out.println("The menu listCourse works");
+        
+        /*
+        if (courses.isEmpty()) {
+            System.out.println("There are no students saved to the database");
+            return;
+        }
+
+        // List each course object to screen
+        Course.forEach((cou) -> {
+            System.out.println(cou);
+        });
+        
+        */
+    }
+    
+    public static void moduleDetails() {
+        // SubMenu for Module Details
+        MenuItem a = new MenuItem("A", "Add Module", app, "addModule");
+        MenuItem b = new MenuItem("B", "List Modules", app, "listModule");
+        MenuBuilder.displayMenuOnce("Select from the following choices", a, b);
+    }
+
+    public static void addModule() {
+        // TODO: Replace with code to add Modules as per addStudent
+        System.out.println("The menu addModule works");
+    }
+
+    public static void listMoudule() {
+        // Replace with code to List Modules as per listStudents
+        System.out.println("The menu listModule works");
+        
+    }
+
+    public static void assignmentDetails() {
+        // SubMenu for Assignment Details
+        MenuItem a = new MenuItem("A", "Add Assignment", app, "addAssignment");
+        MenuItem b = new MenuItem("B", "List Assignments", app, "listAssignment");
+        MenuBuilder.displayMenuOnce("Select from the following choices", a, b);
+    }
+
+    public static void addAssignment() {
+        // TODO: Replace with code to add Assignment as per addStudent
+        System.out.println("The menu addAssignment works");
+    }
+
+    public static void listAssignment() {
+        // Replace with code to List Assignment as per listStudents
+        System.out.println("The menu listAssignment works");
+        
+    }    
     
     public static void alphaConversion(){
         String amount = Reader.readLine("Enter the Mark from 1 to 23");
