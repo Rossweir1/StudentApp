@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author csrmc
  */
-public class User implements Serializable{
+public class Lecturer implements Serializable{
     // <editor-fold defaultstate="collapsed" desc="variables">
 
     private String firstName;
@@ -51,10 +51,10 @@ public class User implements Serializable{
 
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Constructors">
-    public User() {
+    public Lecturer() {
     }
 
-    public User(String fName, String lName, String lecNo) {
+    public Lecturer(String fName, String lName, String lecNo) {
         this.firstName = fName;
         this.surname = lName;
         
@@ -79,8 +79,8 @@ public class User implements Serializable{
 
     public boolean Save() {
 
-        if (!StudentMarksApp.users.contains(this)) {
-            StudentMarksApp.users.add(this);
+        if (!StudentMarksApp.lecturers.contains(this)) {
+            StudentMarksApp.lecturers.add(this);
             return true;
         } else {
             return false;
@@ -120,8 +120,8 @@ public class User implements Serializable{
 
         // Do a simple check against the Matriulation No
         // as 2 students might have the same name, but different matric numbers
-        if (obj instanceof User) {
-            final User other = (User) obj;
+        if (obj instanceof Lecturer) {
+            final Lecturer other = (Lecturer) obj;
             return Objects.equals(this.LecturerId, other.LecturerId);
         } else {
             return false;

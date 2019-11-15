@@ -86,10 +86,21 @@ public class Student implements Serializable {
     @Override
     public String toString() {
 
+        
+        
+        //return firstName + " " + surname + ", Matriculation No.: " + matriculationId;
+        
+        
+        
+        
+        
+        
+        
         // CH: added the test for empty returning an empty string so that could pass
         // the testToString_ReturnsEmptyString test
+        
         if (!this.isEmpty()) {
-            return firstName + " " + surname + ", Matriculation No.: " + matriculationId;
+         return firstName + " " + surname + ", Matriculation No:" + matriculationId;      
         } else {
             return "";
         }

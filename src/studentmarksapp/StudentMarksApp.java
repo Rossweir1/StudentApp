@@ -17,7 +17,7 @@ import uod.gla.util.Reader;
 public class StudentMarksApp implements Finalisable {
 
     static List<Student> students = new ArrayList<>();
-    static List<User> users = new ArrayList<>();
+    static List<Lecturer> lecturers = new ArrayList<>();
     static List<Course> courses = new ArrayList();
     static StudentMarksApp app = new StudentMarksApp(); // Required for the MenuBuilder Class
 
@@ -31,10 +31,10 @@ public class StudentMarksApp implements Finalisable {
             }
             
             //Populate the Array List from storage if there is a file present
-            ArrayList<User> retrieveUser
-                    = Storage.<ArrayList<User>>retrieve("user database", true);
+            ArrayList<Lecturer> retrieveUser
+                    = Storage.<ArrayList<Lecturer>>retrieve("user database", true);
             if (retrieveUser != null) {
-                users = retrieveUser;
+                lecturers = retrieveUser;
             }
             
             // TODO: Create one of above for each class
@@ -114,14 +114,14 @@ public class StudentMarksApp implements Finalisable {
     }
 
     public static void userDetails() {
-        // The SubMenu for User Details
+        // The SubMenu for Lecturer Details
         MenuItem a = new MenuItem("A", "Add User (lecturer) ", app, "addUser");
         MenuItem b = new MenuItem("B", "List Users (Lecturers)", app, "listUser");
         MenuBuilder.displayMenuOnce("Select from the following choices", a, b);
     }
 
     public static void addUser() {
-        // TODO: Replace with code to add User as per addStudent
+        // TODO: Replace with code to add Lecturer as per addStudent
         System.out.println("The menu addUser works");
     }
 
@@ -212,8 +212,8 @@ public class StudentMarksApp implements Finalisable {
             Storage.save((Serializable) students, "student database", true);
         }
 
-        if (!users.isEmpty()) {
-            Storage.save((Serializable) users, "user database", true);
+        if (!lecturers.isEmpty()) {
+            Storage.save((Serializable) lecturers, "user database", true);
         }   
         
         // TODO: Add methods to save the other objects
