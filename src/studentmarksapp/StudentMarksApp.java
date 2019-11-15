@@ -18,6 +18,7 @@ public class StudentMarksApp implements Finalisable {
 
     static List<Student> students = new ArrayList<>();
     static List<User> users = new ArrayList<>();
+    static List<Course> courses = new ArrayList();
     static StudentMarksApp app = new StudentMarksApp(); // Required for the MenuBuilder Class
 
     public static void main(String[] args) {
@@ -37,6 +38,12 @@ public class StudentMarksApp implements Finalisable {
             }
             
             // TODO: Create one of above for each class
+                 ArrayList<Course> retrieveCourse
+                    = Storage.<ArrayList<Course>>retrieve("course database", true);
+            if (retrieveCourse != null) {
+                courses = retrieveCourse;
+            }
+            
             
             
             // Start Up the system
@@ -210,7 +217,9 @@ public class StudentMarksApp implements Finalisable {
         }   
         
         // TODO: Add methods to save the other objects
-        
+        if (!courses.isEmpty()) {
+            Storage.save((Serializable) courses, "course database", true);
+        } 
         
         if (Storage.getException() != null) {
             System.out.print(Storage.getException().getMessage());
