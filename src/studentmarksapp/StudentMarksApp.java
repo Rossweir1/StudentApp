@@ -23,21 +23,21 @@ public class StudentMarksApp implements Finalisable {
 
     public static void main(String[] args) {
         try {
-            //Populate the Array List from storage if there is a file present
+            //Populate the Student List from storage if there is a file present
             ArrayList<Student> retrieve
                     = Storage.<ArrayList<Student>>retrieve("student database", true);
             if (retrieve != null) {
                 students = retrieve;
             }
             
-            //Populate the Array List from storage if there is a file present
+            //Populate the Lecturer List from storage if there is a file present
             ArrayList<Lecturer> retrieveUser
                     = Storage.<ArrayList<Lecturer>>retrieve("user database", true);
             if (retrieveUser != null) {
                 lecturers = retrieveUser;
             }
             
-            // TODO: Create one of above for each class
+            // Populate the Course List from storage if there is a file present
                  ArrayList<Course> retrieveCourse
                     = Storage.<ArrayList<Course>>retrieve("course database", true);
             if (retrieveCourse != null) {
@@ -68,6 +68,42 @@ public class StudentMarksApp implements Finalisable {
         }
 
     }
+
+    public static void alphaConversion(){
+        // SubMenu for the Marks Conversion
+        MenuItem a = new MenuItem("A", "Use the Associated Aggregate Scale", app, "enterAssoMark");
+        MenuItem b = new MenuItem("B", "Use the percentage scale", app, "enterPCMark");
+        MenuBuilder.displayMenuOnce("Select from the following choices", a, b);
+    }
+    
+    public static void enterAssoMark(){
+        // Get the input from the user
+        int mark = Reader.readInt("Enter a mark between 1 & 23", 1, 23);
+        CalcDegreeANScale calc = new CalcDegreeANScale(mark, true);
+        
+        String shortDesc = calc.getAbbreviatedMark();
+        String longDesc = calc.getFullDesc();
+        String honours = calc.getHonours();
+        
+        System.out.println("The Mark is classified as " + shortDesc);
+        System.out.println("The Mark is described as " + longDesc);
+        System.out.println("The honours class is " + honours);
+    }
+    
+    public static void enterPCMark(){
+        // Get the input from the user
+        int mark = Reader.readInt("Enter a mark between 1 & 100", 1, 100);
+        CalcDegreeANScale calc = new CalcDegreeANScale(mark, false);
+        
+        String shortDesc = calc.getAbbreviatedMark();
+        String longDesc = calc.getFullDesc();
+        String honours = calc.getHonours();
+        
+        System.out.println("The Mark is classified as " + shortDesc);
+        System.out.println("The Mark is described as " + longDesc);
+        System.out.println("The honours class is " + honours);
+    }
+
 
     public static void studentDetails() {
         // SubMenu for Student Details
@@ -197,13 +233,7 @@ public class StudentMarksApp implements Finalisable {
         
     }    
     
-    public static void alphaConversion(){
-        String amount = Reader.readLine("Enter the Mark from 1 to 23");
-        //int amountVal = amount.
-        //String convertedValue = CalcDegreeANScale.CalcAlphaNumericValue(amount);
-        
-                
-    }
+    
 
     @Override
     public void finalise() {

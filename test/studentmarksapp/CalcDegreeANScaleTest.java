@@ -37,22 +37,123 @@ public class CalcDegreeANScaleTest {
     public void tearDown() {
     }
 
+    /**
+     * Test of getAbbreviatedMark method, of class CalcDegreeANScale.
+     */
     @Test
-    public void testCalcAlphaNumeric_withZero(){
-        int testValue = 0;
+    public void testGetAbbreviatedMark() {
+        System.out.println("getAbbreviatedMark");
+        CalcDegreeANScale testObj = new CalcDegreeANScale(0, true);
+        // initialising with a zero, should return an empty string
+        String expResult = "";
+        String result = testObj.getAbbreviatedMark();
+        assertEquals(expResult, result);
         
-        // Test should return true when 0 is passed
-        assertEquals(CalcDegreeANScale.CalcAlphaNumericValue(testValue), "Cannot determin. Value must be between 1 and 23");
+    }
+
+    /**
+     * Test of getFullDesc method, of class CalcDegreeANScale.
+     */
+    @Test
+    public void testGetFullDesc() {
+        System.out.println("getFullDesc");
+        CalcDegreeANScale testObj = new CalcDegreeANScale(0, true);
+        // initialising with a zero, should return an error string
+        String expResult = "Cannot determin. Value must be between 1 and 23";
+        String result = testObj.getFullDesc();
+        assertEquals(expResult, result);
+        
+    }
+
+    /**
+     * Test of getHonours method, of class CalcDegreeANScale.
+     */
+    @Test
+    public void testGetHonours() {
+        System.out.println("getHonours");
+        CalcDegreeANScale testObj = new CalcDegreeANScale(0, true);
+        // initialising with a zero, should return an empty string
+        String expResult = "";
+        String result = testObj.getHonours();
+        assertEquals(expResult, result);
+
     }
     
     @Test
-    public void testCalcAlphaNumeric_WithNumberOutsideRange(){
-        int testValue = 24;
-        // The max value is 23;
-        
-        // Test should return "Value must be lower than 24" when 0 is passed
-        assertEquals(CalcDegreeANScale.CalcAlphaNumericValue(testValue), "Cannot determin. Value must be between 1 and 23");
+    public void testGetAbbreviatedMark_withAggScale() {
+        System.out.println("getAbbreviatedMark_withAggScale");
+        CalcDegreeANScale testObj = new CalcDegreeANScale(9, true);
+        // initialising with a mark, should return a value
+        String expResult = "MF1";
+        String result = testObj.getAbbreviatedMark();
+        assertEquals(expResult, result);
         
     }
+
+    /**
+     * Test of getFullDesc method, of class CalcDegreeANScale.
+     */
+    @Test
+    public void testGetFullDesc_withAggScale() {
+        System.out.println("getFullDesc_withAggScale");
+        CalcDegreeANScale testObj = new CalcDegreeANScale(16, true);
+        // initialising with a mark, should return a string
+        String expResult = "Very Good";
+        String result = testObj.getFullDesc();
+        assertEquals(expResult, result);
+        
+    }
+
+    /**
+     * Test of getHonours method, of class CalcDegreeANScale.
+     */
+    @Test
+    public void testGetHonours_withAggScale() {
+        System.out.println("getHonours_withAggScale");
+        CalcDegreeANScale testObj = new CalcDegreeANScale(22, true);
+        // initialising with a mark, should return a string
+        String expResult = "1st";
+        String result = testObj.getHonours();
+        assertEquals(expResult, result);
+
+    }
     
+    @Test
+    public void testGetAbbreviatedMark_withPCScale() {
+        System.out.println("getAbbreviatedMark_withPCScale");
+        CalcDegreeANScale testObj = new CalcDegreeANScale(45, false);
+        // initialising with a mark, should return a value
+        String expResult = "D2";
+        String result = testObj.getAbbreviatedMark();
+        assertEquals(expResult, result);
+        
+    }
+
+    /**
+     * Test of getFullDesc method, of class CalcDegreeANScale.
+     */
+    @Test
+    public void testGetFullDesc_withPCScale() {
+        System.out.println("getFullDesc_withPCScale");
+        CalcDegreeANScale testObj = new CalcDegreeANScale(58, false);
+        // initialising with a mark, should return a string
+        String expResult = "Good";
+        String result = testObj.getFullDesc();
+        assertEquals(expResult, result);
+        
+    }
+
+    /**
+     * Test of getHonours method, of class CalcDegreeANScale.
+     */
+    @Test
+    public void testGetHonours_withPCScale() {
+        System.out.println("getHonours_withPCScale");
+        CalcDegreeANScale testObj = new CalcDegreeANScale(75, false);
+        // initialising with a mark, should return a string
+        String expResult = "1st";
+        String result = testObj.getHonours();
+        assertEquals(expResult, result);
+
+    }
 }
