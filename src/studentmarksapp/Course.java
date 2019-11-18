@@ -5,13 +5,14 @@
  */
 package studentmarksapp;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author jsoutar
  */
-public class Course {
+public class Course implements Serializable{
     // <editor-fold defaultstate="collapsed" desc="variables">
 
     private String courseName;
