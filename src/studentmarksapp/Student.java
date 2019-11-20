@@ -100,7 +100,7 @@ public class Student implements Serializable {
         // the testToString_ReturnsEmptyString test
         
         if (!this.isEmpty()) {
-         return firstName + " " + surname + ", Matriculation No:" + matriculationId;      
+         return firstName + " " + surname + ", Matriculation No.: " + matriculationId;      
         } else {
             return "";
         }

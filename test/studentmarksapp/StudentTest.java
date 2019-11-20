@@ -37,6 +37,9 @@ public class StudentTest {
     public void tearDown() {
     }
 
+    /**
+     * Test of isEmpty method, of class Student if no values passed to constructor.
+     */
     @Test
     public void testIsEmpty(){
         Student s = new Student();
@@ -46,6 +49,9 @@ public class StudentTest {
         assertTrue("Student is empty", retValue);
     }
     
+    /**
+     * Test of isEmpty method, of class Student if First Name is set.
+     */
     @Test
     public void testEmptyAfterAssigningFName(){
         Student s = new Student();
@@ -56,7 +62,9 @@ public class StudentTest {
         assertFalse("Student is not empty", retValue);
         
     }
-    
+    /**
+     * Test of isEmpty method, of class Student if a Surname is Set.
+     */
     @Test
     public void testEmptyAfterAssigningSName(){
         Student s = new Student();
@@ -68,6 +76,9 @@ public class StudentTest {
         
     }
     
+    /**
+     * Test of isEmpty method, of class Student a value is passed.
+     */
     @Test
     public void testEmptyAfterAssigningMatricId(){
         Student s = new Student();
@@ -79,6 +90,9 @@ public class StudentTest {
         
     }
     
+    /**
+     * Test of Constructor, of class Student if no values passed.
+     */
     @Test
     public void testConstructor(){
         Student s = new Student();
@@ -89,6 +103,9 @@ public class StudentTest {
         assertTrue("Student is empty", retValue);
     } 
     
+    /**
+     * Test of Constructor, of class Student
+     */
     @Test
     public void testConstructorWithValues(){
         Student s = new Student("Bilbo", "Baggins", "G888675");
@@ -99,6 +116,9 @@ public class StudentTest {
         assertFalse("Student is not empty", retValue);
     } 
     
+    /**
+     * Test of Save method, of class Student
+     */
     @Test
     public void testSaveMethodIsCalled(){
         Student s = new Student("Frodo", "Baggins", "GZ1");
@@ -112,16 +132,24 @@ public class StudentTest {
         
     }
     
+    /**
+     * Test of toString method, of class Student if empty string passed.
+     */
     @Test
     public void testToString_ReturnsEmptyString(){
+        System.out.println("testToString_ReturnsEmptyString");
         Student s = new Student();
         
         // Test should return true because nothing has been assigned to the student
         assertEquals(s.toString(), "");
     }
     
+    /**
+     * Test of toString method, of class Student.
+     */
     @Test
     public void testToString(){
+        System.out.println("testToString");
         Student s = new Student("Gandalf", "The Grey", "GZ2");
         String expected = "Gandalf The Grey, Matriculation No.: GZ2";
         
@@ -129,5 +157,18 @@ public class StudentTest {
         assertEquals(expected, s.toString());
     } 
     
-    
+    /**
+     * Test of hashCode method, of class Student.
+     */
+    @Test
+    public void testHashCode() {
+        System.out.println("testHashCode");
+        Student student = new Student("Bob","Hope","GA6");
+        int expResult = 70635; //This id the generated hash code for rhe above values
+        int result = student.hashCode();
+        
+        // Test should return true as correct Hash Code used
+        assertEquals(expResult, result);
+        
+    }
 }
