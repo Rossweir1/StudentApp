@@ -18,7 +18,7 @@ public class StudentMarksApp implements Finalisable {
 
     static List<Student> students = new ArrayList<>();
     static List<Lecturer> lecturers = new ArrayList<>();
-    static List<Course> courses = new ArrayList();
+    static List<Course> courses = new ArrayList<>();
     static StudentMarksApp app = new StudentMarksApp(); // Required for the MenuBuilder Class
 
     public static void main(String[] args) {
@@ -31,10 +31,10 @@ public class StudentMarksApp implements Finalisable {
             }
             
             //Populate the Lecturer List from storage if there is a file present
-            ArrayList<Lecturer> retrieveUser
-                    = Storage.<ArrayList<Lecturer>>retrieve("user database", true);
-            if (retrieveUser != null) {
-                lecturers = retrieveUser;
+            ArrayList<Lecturer> retrieveLecturer
+                    = Storage.<ArrayList<Lecturer>>retrieve("lecturer database", true);
+            if (retrieveLecturer != null) {
+                lecturers = retrieveLecturer;
             }
             
             // Populate the Course List from storage if there is a file present
@@ -51,7 +51,7 @@ public class StudentMarksApp implements Finalisable {
 
             //Generate the menu items        
             MenuItem a = new MenuItem("A", "Student Details", app, "studentDetails");
-            MenuItem b = new MenuItem("B", "User (Lecturer) Details", app, "userDetails");
+            MenuItem b = new MenuItem("B", "Lecturer Details", app, "lecturerDetails");
             MenuItem c = new MenuItem("C", "Course Details", app, "courseDetails");
             MenuItem d = new MenuItem("D", "Module Details", app, "moduleDetails");
             MenuItem e = new MenuItem("E", "Assignment Details", app, "assignmentDetails");
@@ -149,21 +149,46 @@ public class StudentMarksApp implements Finalisable {
         });               
     }
 
-    public static void userDetails() {
+    public static void lecturerDetails() {
         // The SubMenu for Lecturer Details
-        MenuItem a = new MenuItem("A", "Add User (lecturer) ", app, "addUser");
-        MenuItem b = new MenuItem("B", "List Users (Lecturers)", app, "listUser");
+        MenuItem a = new MenuItem("A", "Add Lecturer ", app, "addLecturer");
+        MenuItem b = new MenuItem("B", "List Lecturers", app, "listLecturer");
         MenuBuilder.displayMenuOnce("Select from the following choices", a, b);
     }
 
-    public static void addUser() {
-        // TODO: Replace with code to add Lecturer as per addStudent
-        System.out.println("The menu addUser works");
+    public static void addLecturer() {
+        //Test
+        // Ask the user to input the values for a new Lecturer,
+        // store in the lecturer arrayList
+        
+        // Get the input from the user
+        String firstName = Reader.readLine("Enter the Lecturer's First Name");
+        String surname = Reader.readLine("Enter the Lecturer's Surname");
+        String lecturerID = Reader.readLine("Enter the Lecturer's ID no.");
+
+        // Create a lecturer object
+        Lecturer lecturer = new Lecturer(firstName, surname, lecturerID);
+
+        // Save the lecturer. If the save is succesful, it will return a value of true
+        if (lecturer.Save()){
+            System.out.println("A new lecturer (" + lecturer.FullName()
+                    + ") has been successfully created!");
+        } else {
+            System.out.println("A lecturer with this Lecturer ID (" + lecturer.getLecturerId()+ ")has already been entered.");
+            System.out.println("Adding lecturer abandoned");
+        }
     }
 
-    public static void listUser() {
-        // Replace with code to List Users as per listStudents
-        System.out.println("The menu listUser works");
+    public static void listLecturer() {
+        if (lecturers.isEmpty()) {
+            System.out.println("There are no lecturers saved to the database");
+            return;
+        }
+
+        // List each lecturer object to screen
+        lecturers.forEach((lec) -> {
+            System.out.println(lec);
+        });
         
     }
     
@@ -175,26 +200,39 @@ public class StudentMarksApp implements Finalisable {
     }
     
     public static void addCourse() {
-        // TODO: Replace with code to add Course as per addStudent
-        System.out.println("The menu addCourse works");
+        //Test
+        // Ask the user to input the values for a new course,
+        // store in the course arrayList
+        
+        // Get the input from the user
+        String courseID = Reader.readLine("Enter the Course's ID Number");
+        String courseName = Reader.readLine("Enter the Courses's Name");
+
+        // Create a student object
+        Course course = new Course(courseID, courseName);
+
+        // Save the course. If the save is succesful, it will return a value of true
+        if (course.Save()){
+            System.out.println("A new course (" + course.getCourseName()
+                    + ") has been successfully created!");
+        } else {
+            System.out.println("A course with this ID Number (" + course.getCourseId() + ")has already been entered.");
+            System.out.println("Adding course abandoned");
+        }
     }
 
-    public static void listCourse() {
-        // Replace with code to List Courses as per listStudents
-        System.out.println("The menu listCourse works");
-        
-        /*
+    public static void listCourse() { 
         if (courses.isEmpty()) {
-            System.out.println("There are no students saved to the database");
+            System.out.println("There are no courses saved to the database");
             return;
         }
 
         // List each course object to screen
-        Course.forEach((cou) -> {
+        courses.forEach((cou) -> {
             System.out.println(cou);
         });
         
-        */
+        
     }
     
     public static void moduleDetails() {
@@ -243,7 +281,7 @@ public class StudentMarksApp implements Finalisable {
         }
 
         if (!lecturers.isEmpty()) {
-            Storage.save((Serializable) lecturers, "user database", true);
+            Storage.save((Serializable) lecturers, "lecturer database", true);
         }   
         
         // TODO: Add methods to save the other objects
