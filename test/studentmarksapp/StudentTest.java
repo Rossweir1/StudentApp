@@ -298,7 +298,7 @@ public class StudentTest {
         actualValue = student.calculateWeightedTotal();
         
         // Test succeeds if the returned result is within .1 if the expected result
-        assertEquals(expectedValue, actualValue, 0.1);
+        assertEquals(expectedValue, actualValue);
     }
 
     
