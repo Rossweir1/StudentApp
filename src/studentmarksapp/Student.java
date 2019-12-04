@@ -6,6 +6,8 @@
 package studentmarksapp;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Student implements Serializable {
@@ -14,6 +16,8 @@ public class Student implements Serializable {
     private String firstName;
     private String surname;
     private String matriculationId;
+    private List<Assignment> assignmentList = new ArrayList<>();
+    
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Properties">
@@ -45,7 +49,8 @@ public class Student implements Serializable {
         return firstName + " " + surname;
     }
 
-// </editor-fold>
+    // </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Constructors">
     public Student() {
     }
@@ -84,18 +89,10 @@ public class Student implements Serializable {
     }
 
     @Override
-    public String toString() {
-
-        
+    public String toString() { 
         
         //return firstName + " " + surname + ", Matriculation No.: " + matriculationId;
-        
-        
-        
-        
-        
-        
-        
+       
         // CH: added the test for empty returning an empty string so that could pass
         // the testToString_ReturnsEmptyString test
         
@@ -134,5 +131,32 @@ public class Student implements Serializable {
         }
 
     }
+    
+    public void addAssignment(Assignment ass){
+        this.assignmentList.add(ass);
+    }
+    
+    public double calculateWeightedTotal(){
+        
+        int wmarks = 0;
+        int credits = 0;
+        double finalValue = 0;
+        
+        for(int i= 0; i < assignmentList.size(); i++){
+            Assignment ass = assignmentList.get(i);
+            wmarks += ass.calculateWeightedScore();
+            credits += ass.getCredits();
+        } 
+        
+        // Need to avoid a division by 0
+        if (credits > 0){
+            finalValue = wmarks / credits;
+        }
+        
+        
+        return finalValue;
+        
+    }
+    
     // </editor-fold>
 }

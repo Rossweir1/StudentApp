@@ -19,6 +19,8 @@ public class StudentMarksApp implements Finalisable {
     static List<Student> students = new ArrayList<>();
     static List<Lecturer> lecturers = new ArrayList<>();
     static List<Course> courses = new ArrayList<>();
+    static List<Assignment> assignments = new ArrayList();
+    
     static StudentMarksApp app = new StudentMarksApp(); // Required for the MenuBuilder Class
 
     public static void main(String[] args) {
@@ -38,12 +40,18 @@ public class StudentMarksApp implements Finalisable {
             }
             
             // Populate the Course List from storage if there is a file present
-                 ArrayList<Course> retrieveCourse
+            ArrayList<Course> retrieveCourse
                     = Storage.<ArrayList<Course>>retrieve("course database", true);
             if (retrieveCourse != null) {
                 courses = retrieveCourse;
             }
             
+            //Populate the Lecturer List from storage if there is a file present
+            ArrayList<Assignment> retrieveAssignment
+                    = Storage.<ArrayList<Assignment>>retrieve("assignment database", true);
+            if (retrieveAssignment != null) {
+                assignments = retrieveAssignment;
+            }
             
             
             // Start Up the system
@@ -200,9 +208,9 @@ public class StudentMarksApp implements Finalisable {
     }
     
     public static void addCourse() {
-        //Test
-        // Ask the user to input the values for a new course,
-        // store in the course arrayList
+        
+        // Ask the user to input the values for a new assignment,
+        // store in the assignment arrayList
         
         // Get the input from the user
         String courseID = Reader.readLine("Enter the Course's ID Number");
@@ -211,7 +219,7 @@ public class StudentMarksApp implements Finalisable {
         // Create a student object
         Course course = new Course(courseID, courseName);
 
-        // Save the course. If the save is succesful, it will return a value of true
+        // Save the assignment. If the save is succesful, it will return a value of true
         if (course.Save()){
             System.out.println("A new course (" + course.getCourseName()
                     + ") has been successfully created!");
@@ -227,7 +235,7 @@ public class StudentMarksApp implements Finalisable {
             return;
         }
 
-        // List each course object to screen
+        // List each assignment object to screen
         courses.forEach((cou) -> {
             System.out.println(cou);
         });
@@ -261,13 +269,36 @@ public class StudentMarksApp implements Finalisable {
     }
 
     public static void addAssignment() {
-        // TODO: Replace with code to add Assignment as per addStudent
-        System.out.println("The menu addAssignment works");
+        // Ask the user to input the values for a new assignment,
+        // store in the assignment arrayList
+        
+        // Get the input from the user
+        String assignmentID = Reader.readLine("Enter the assignment's ID Number");
+        String assignmentDesc = Reader.readLine("Enter the assignment's Description");
+        int assignmentCredits = Reader.readInt("Enter the credits the assignment is worth", 0, 120);
+        // Create an assignment object
+        Assignment assignment = new Assignment(assignmentID, assignmentCredits, assignmentDesc);
+
+        // Save the assignment. If the save is succesful, it will return a value of true
+        if (assignment.Save()){
+            System.out.println("A new assignment (" + assignment.getDescription()
+                    + ") has been successfully created!");
+        } else {
+            System.out.println("An assignment with this ID Number (" + assignment.getId()+ ")has already been entered.");
+            System.out.println("Adding course abandoned");
+        }
     }
 
     public static void listAssignment() {
-        // Replace with code to List Assignment as per listStudents
-        System.out.println("The menu listAssignment works");
+        if (assignments.isEmpty()) {
+            System.out.println("There are no assignments saved to the database");
+            return;
+        }
+
+        // List each assignment object to screen
+        assignments.forEach((ass) -> {
+            System.out.println(ass);
+        });
         
     }    
     
@@ -288,6 +319,10 @@ public class StudentMarksApp implements Finalisable {
         if (!courses.isEmpty()) {
             Storage.save((Serializable) courses, "course database", true);
         } 
+        
+        if (!assignments.isEmpty()) {
+            Storage.save((Serializable) assignments, "assignment database", true);
+        }
         
         if (Storage.getException() != null) {
             System.out.print(Storage.getException().getMessage());
