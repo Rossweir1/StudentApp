@@ -178,6 +178,9 @@ public class StudentTest {
      * score, we need a number of assignments. Assignments will ultimately be stored on file,
      * but for the purpose of this test, will be stored in a List Object within the Student class.
      * Data will be mocked for the purpose of passing the tests
+     * 
+     * This is to test the user Story "The system should be able to calculate the final weighted mark 
+     * based on all marks entered."
      */
     
     /**
