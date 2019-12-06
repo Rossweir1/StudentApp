@@ -12,8 +12,8 @@ import java.util.Objects;
 
 public class Assignment implements Serializable{
     // <editor-fold defaultstate="collapsed" desc="variables">
-    private int mark;
-    private int credits;
+    private double mark;
+    private double credits;
     private String id;
     private String description;
     // </editor-fold>
@@ -32,7 +32,7 @@ public class Assignment implements Serializable{
     }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Properties">
-    public int getMark() {
+    public double getMark() {
         return mark;
     }
 
@@ -40,7 +40,7 @@ public class Assignment implements Serializable{
         this.mark = mark;
     }
 
-    public int getCredits() {
+    public double getCredits() {
         return credits;
     }
 
@@ -60,7 +60,7 @@ public class Assignment implements Serializable{
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Methods">
     
-    public int calculateWeightedScore(){
+    public double calculateWeightedScore(){
         return mark * credits;
     }
     
@@ -101,7 +101,7 @@ public class Assignment implements Serializable{
         if (mark == 0){
             marks = "Unmarked";
         } else {
-            marks = Integer.toString(mark);
+            marks = Double.toString(mark);
         }
         
         if (!this.isEmpty()) {

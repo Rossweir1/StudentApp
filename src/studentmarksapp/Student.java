@@ -160,8 +160,9 @@ public class Student implements Serializable {
      */
     public double calculateWeightedTotal() {
 
-        int wmarks = 0;
-        int credits = 0;
+        // refactored these to doubles as I was losing the decimal places
+        double wmarks = 0;
+        double credits = 0;
         double finalValue = 0;
 
         // Only calculate the weighted total if the assignment has a mark
@@ -178,7 +179,7 @@ public class Student implements Serializable {
         if (credits > 0) {
             finalValue = wmarks / credits;
         }
-
+        
         return finalValue;
 
     }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.text.*;
 
 //The Following import a Utility set of classes used for the purpose of 
 //cretating a menu system, and creating serializable objects that can be 
@@ -327,7 +328,9 @@ public class StudentMarksApp implements Finalisable {
         
         double currentMark;
         currentMark = student.calculateWeightedTotal();
-        String weightedMark = String.format ("%.2f", currentMark);
+        //System.out.println(currentMark);
+        //DecimalFormat df = new DecimalaFormat("%1$.2f");
+        String weightedMark = String.format("%.2f", currentMark);
         
         CalcDegreeANScale honours = new CalcDegreeANScale(currentMark, false);
         
