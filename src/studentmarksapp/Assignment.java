@@ -96,8 +96,16 @@ public class Assignment implements Serializable{
         // CH: added the test for empty returning an empty string so that could pass
         // the testToString_ReturnsEmptyString test
         
+        String marks;
+        
+        if (mark == 0){
+            marks = "Unmarked";
+        } else {
+            marks = Integer.toString(mark);
+        }
+        
         if (!this.isEmpty()) {
-         return  "Assignment Id: " + id + ": " + description + " (" + credits + " credits)";      
+         return  "Assignment Id: " + id + ": " + description + " (" + credits + " credits), Marks: " + marks;      
         } else {
             return "";
         }

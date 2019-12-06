@@ -21,13 +21,15 @@ package studentmarksapp;
  */
 public class CalcDegreeANScale {
 
-    private int mark;
+    private double mark;
     private boolean isAggScale;
     private String abbreviatedMark;
     private String fullDesc;
     private String honours;
 
-    public CalcDegreeANScale(int mark, boolean isAggScale) {
+    // refactored this to accept a double, as this is the returned
+    // value from the Student.calculateWeightedTotal function
+    public CalcDegreeANScale(double mark, boolean isAggScale) {
         this.mark = mark;
         this.isAggScale = isAggScale;
         

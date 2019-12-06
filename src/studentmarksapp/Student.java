@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package studentmarksapp;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import static studentmarksapp.StudentMarksApp.assignments;
 
 public class Student implements Serializable {
     // <editor-fold defaultstate="collapsed" desc="variables">
@@ -17,9 +14,8 @@ public class Student implements Serializable {
     private String surname;
     private String matriculationId;
     private List<Assignment> assignmentList = new ArrayList<>();
-    
-    // </editor-fold>
 
+    // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Properties">
     public String getMatriculationId() {
         return matriculationId;
@@ -49,8 +45,11 @@ public class Student implements Serializable {
         return firstName + " " + surname;
     }
 
+    public List<Assignment> getAssignmentList() {
+        return assignmentList;
+    }
+
     // </editor-fold>
-    
     // <editor-fold defaultstate="collapsed" desc="Constructors">
     public Student() {
     }
@@ -88,16 +87,27 @@ public class Student implements Serializable {
 
     }
 
+    // creates a string shoing the assignments linked to the student
+    // in a list format
+    public String listAssignments() {
+        String assigList = "";
+        for (int i = 0; i < assignmentList.size(); i++) {
+            Assignment ass = assignmentList.get(i);
+            assigList += "\n " + ass.toString();
+        }
+
+        return assigList;
+    }
+
     @Override
-    public String toString() { 
-        
+    public String toString() {
+
         //return firstName + " " + surname + ", Matriculation No.: " + matriculationId;
-       
         // CH: added the test for empty returning an empty string so that could pass
         // the testToString_ReturnsEmptyString test
-        
         if (!this.isEmpty()) {
-         return firstName + " " + surname + ", Matriculation No.: " + matriculationId;      
+
+            return firstName + " " + surname + ", Matriculation No.: " + matriculationId;
         } else {
             return "";
         }
@@ -131,34 +141,65 @@ public class Student implements Serializable {
         }
 
     }
-    
-    public void addAssignment(Assignment ass){
+
+    // adds an assignment to the Assignments List for the student
+    public void addAssignment(Assignment ass) {
         this.assignmentList.add(ass);
+        System.out.println("For " + this.toString() + " added: ");
+        System.out.println(ass.getDescription());
     }
-    
-    public double calculateWeightedTotal(){
-        
+
+    /** This function creates the final weighted total for the student
+     *  Within a loop, it takes each assignment object from the assignments List
+     *  For each one:
+     *      - Calculate the weighted total (marks * credits)
+     *      - Keep a cumulative sum of credits
+     *  Once Loop is complete
+     *      - (Sum of weighted marks) / (Sum of credits) 
+     * @return a double value
+     */
+    public double calculateWeightedTotal() {
+
         int wmarks = 0;
         int credits = 0;
         double finalValue = 0;
-        
-        for(int i= 0; i < assignmentList.size(); i++){
+
+        // Only calculate the weighted total if the assignment has a mark
+        for (int i = 0; i < assignmentList.size(); i++) {
             Assignment ass = assignmentList.get(i);
-            wmarks += ass.calculateWeightedScore();
-            credits += ass.getCredits();
-        } 
-        
+            if (ass.getMark() != 0) {
+                wmarks += ass.calculateWeightedScore();
+                credits += ass.getCredits();
+            }
+
+        }
+
         // Need to avoid a division by 0
-        if (credits > 0){
+        if (credits > 0) {
             finalValue = wmarks / credits;
         }
-        
-        
-        
 
         return finalValue;
-        
+
     }
-    
+
+    // Used for test purposes to add all assignments to a student
+    // In a later sprint it would be expected that an assignment would be added to 
+    // a course. By being enrolled on that course, the student would inherit the assignments
+    // that are part of that course
+    public void addAssignments() {
+        if (assignments.isEmpty()) {
+            System.out.println("There are no assignments saved to the database");
+            return;
+        }
+
+        // List each assignment object to screen
+        assignments.forEach((ass) -> {
+            addAssignment(ass);
+
+        });
+    }
+
+
     // </editor-fold>
 }

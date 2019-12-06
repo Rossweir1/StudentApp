@@ -2,7 +2,9 @@ package studentmarksapp;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 //The Following import a Utility set of classes used for the purpose of 
 //cretating a menu system, and creating serializable objects that can be 
@@ -117,9 +119,22 @@ public class StudentMarksApp implements Finalisable {
         // SubMenu for Student Details
         MenuItem a = new MenuItem("A", "Add Student", app, "addStudent");
         MenuItem b = new MenuItem("B", "List Students", app, "listStudents");
-        MenuBuilder.displayMenuOnce("Select from the following choices", a, b);
+        MenuItem c = new MenuItem("C", "Add all assignments to all students (Testing only)", app, "addAssignments");
+        MenuItem d = new MenuItem("d", "View Student Assignments", app, "showAssignments");
+        MenuItem e = new MenuItem("e", "Mark an assignment", app, "listAssignmentsToMark");
+        MenuBuilder.displayMenuOnce("Select from the following choices", a, b, c, d, e);
     }
-
+    
+    // Used for test purposes to add all assignments to a student
+    // In a later sprint it would be expected that an assignment would be added to 
+    // a course. By being enrolled on that course, the student would inherit the assignments
+    // that are part of that course
+    public static void addAssignments(){
+        students.forEach((stu) -> {
+            stu.addAssignments();
+        }); 
+    }
+    
     public static void addStudent() {
         //Test
         // Ask the user to input the values for a new student,
@@ -302,6 +317,66 @@ public class StudentMarksApp implements Finalisable {
         
     }    
     
+    
+    
+    public void showAssignments(){
+        Student student = listStudentsForAssignments();
+        System.out.println("Assignments being studied...");
+        String assList =  student.listAssignments();
+        System.out.println(assList);
+        
+        double currentMark;
+        currentMark = student.calculateWeightedTotal();
+        String weightedMark = String.format ("%.2f", currentMark);
+        
+        CalcDegreeANScale honours = new CalcDegreeANScale(currentMark, false);
+        
+        System.out.println("");
+        System.out.println(student.FullName() + " currently has a weighted average mark of " + weightedMark);
+        System.out.println("");
+        System.out.println(student.getFirstName() + " is on target for a " + honours.getHonours());
+    }
+    
+    public static void listAssignmentsToMark(){
+        
+        Student student = listStudentsForAssignments();
+        Assignment assignment = listAssignmentsForStudent(student);
+        String id = assignment.getId();
+        int mark = Reader.readInt("Please enter the mark for the assignment (1-100)", 1, 100);
+        assignment.setMark(mark);
+        
+    }
+    
+    
+    public static Assignment listAssignmentsForStudent(Student student){
+        
+        if (student.getAssignmentList().isEmpty()) {
+            System.out.println("Search Result: No assignments found");
+            return null;}
+         else {
+            System.out.println("Assignments...");
+            return Reader.readObject("Please select an assignment to mark",
+                    student.getAssignmentList().toArray(new Assignment[0]));
+        }
+        
+    }
+    
+    public static Student listStudentsForAssignments(){
+        List<Student> studentsFound = new ArrayList<>();
+        students.forEach((student) -> {
+                    studentsFound.add(student);
+                });
+        
+        if (studentsFound.isEmpty()) {
+            System.out.println("Search Result: No students found");
+            return null;}
+         else {
+            System.out.println("Students...");
+            return Reader.readObject("Please select a student",
+                    studentsFound.toArray(new Student[0]));
+        }
+        
+    }
     
 
     @Override
