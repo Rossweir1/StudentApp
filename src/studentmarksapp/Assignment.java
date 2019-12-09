@@ -32,11 +32,13 @@ public class Assignment implements Serializable{
     }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Properties">
+    // CH Refactored ints to doubles, so that when we do the final average calculation
+    // it keeps the decimal places
     public double getMark() {
         return mark;
     }
 
-    public void setMark(int mark) {
+    public void setMark(double mark) {
         this.mark = mark;
     }
 
@@ -44,7 +46,7 @@ public class Assignment implements Serializable{
         return credits;
     }
 
-    public void setCredits(int credits) {
+    public void setCredits(double credits) {
         this.credits = credits;
     }
 

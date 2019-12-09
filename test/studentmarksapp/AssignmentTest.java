@@ -88,9 +88,11 @@ public class AssignmentTest {
         int credits = 0;
         Assignment ass = new Assignment();
         ass.setCredits(credits);
-        int testvalue = ass.getCredits();
         
-        assertEquals(credits, testvalue);
+        //refactored this to a double for division calculation
+        //int testvalue = ass.getCredits();
+        double testvalue = ass.getCredits();
+        assertEquals(credits, testvalue, .1);
     }
     
     /**
@@ -101,10 +103,10 @@ public class AssignmentTest {
     @Test
     public void testSetMarks() {
         System.out.println("testsetMarks");
-        int mark = 0;
+        double mark = 0;
         Assignment ass = new Assignment();
         ass.setMark(mark);
-        assertEquals(mark, 0);
+        assertEquals(mark, 0, .1);
         
     }
     
@@ -117,12 +119,12 @@ public class AssignmentTest {
     @Test
     public void testGetMarks() {
         System.out.println("testGetCredits");
-        int mark = 0;
+        double mark = 0;
         Assignment ass = new Assignment();
         ass.setMark(mark);
-        int testvalue = ass.getMark();
+        double testvalue = ass.getMark();
         
-        assertEquals(mark, testvalue);
+        assertEquals(mark, testvalue, .1);
     }
 
     /**
@@ -139,20 +141,20 @@ public class AssignmentTest {
     @Test
     public void testCalculateWeightedScore(){
         System.out.println("testCalculateWeightedScore");
-        int mark = 70;
-        int credits = 5;
-        int expectedweightedscore = 350;
+        double mark = 70;
+        double credits = 5;
+        double expectedweightedscore = 350;
         
         Assignment ass = new Assignment();
         ass.setCredits(credits);
         ass.setMark(mark);
         
-        int returnValue;
+        double returnValue;
         returnValue = ass.calculateWeightedScore();
         
         // test succeeds if the value calculated by the object
         // returns the same value as the 
-        assertEquals(expectedweightedscore, returnValue);
+        assertEquals(expectedweightedscore, returnValue, .1);
         
     }
 
