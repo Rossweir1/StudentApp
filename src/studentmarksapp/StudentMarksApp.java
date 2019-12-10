@@ -60,13 +60,13 @@ public class StudentMarksApp implements Finalisable {
             // Start Up the system
             System.out.println("Welcome to the Student Marks Application");
 
-            //Generate the menu items        
-            MenuItem a = new MenuItem("A", "Student Details", app, "studentDetails");
-            MenuItem b = new MenuItem("B", "Lecturer Details", app, "lecturerDetails");
+            //Generate the menu items 
+            MenuItem a = new MenuItem("A", "Alphanumeric Conversion", app, "alphaConversion");
+            MenuItem b = new MenuItem("B", "Assignment Details", app, "assignmentDetails");
             MenuItem c = new MenuItem("C", "Course Details", app, "courseDetails");
-            MenuItem d = new MenuItem("D", "Module Details", app, "moduleDetails");
-            MenuItem e = new MenuItem("E", "Assignment Details", app, "assignmentDetails");
-            MenuItem f = new MenuItem("F", "Alphanumeric Conversion", app, "alphaConversion");
+            MenuItem d = new MenuItem("D", "Lecturer Details", app, "lecturerDetails");
+            MenuItem e = new MenuItem("E", "Module Details", app, "moduleDetails");
+            MenuItem f = new MenuItem("F", "Student Details ", app, "studentDetails");
             
             // Display the Menu, and link it to the finalise method, by using the app variable
             MenuBuilder.displayMenu(app, a, b, c, d, e, f);
